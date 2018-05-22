@@ -205,8 +205,8 @@ public class BlockCommand extends QueryBuilderBlock {
 		if (verifyInstance(objectBlockCount, long.class)) {
 			stringBlockCount = (long) objectBlockCount;
 		} else if (verifyInstance(objectBlockCount, Double.class)) {
-            stringBlockCount = ((Double)objectBlockCount).longValue();
-        }
+			stringBlockCount = ((Double)objectBlockCount).longValue();
+		}
 
 		return stringBlockCount;
 	}
