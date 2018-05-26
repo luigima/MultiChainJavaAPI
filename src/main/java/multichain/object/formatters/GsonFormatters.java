@@ -11,6 +11,7 @@ import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
 
 /**
  * @author Ub - H. MARTEAU
@@ -34,7 +35,10 @@ public class GsonFormatters {
 	protected static String formatJson(Object value) {
 		final GsonBuilder builder = new GsonBuilder();
 		final Gson gson = builder.create();
-		return gson.toJson(value);
+		return gson.toJson(value)
+				.replace("\\","")
+				.replace("\"{", "{")
+				.replace("}\"", "}");
 	}
 	
 	protected static String formatJsonWithCustomBuilder(Object value, GsonBuilder builder) {

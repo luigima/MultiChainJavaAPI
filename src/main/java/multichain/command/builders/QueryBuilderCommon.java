@@ -9,6 +9,7 @@ package multichain.command.builders;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -174,6 +175,8 @@ abstract class QueryBuilderCommon extends GsonFormatters {
 				// Generate the entity and initialize request
 				StringEntity rpcEntity = prepareRpcEntity(entityValues);
 				httppost.setEntity(rpcEntity);
+
+				System.out.println(new String(httppost.getEntity().getContent().readAllBytes(), StandardCharsets.UTF_8));
 				// Execute the request and get the answer
 				return executeRequest();
 
@@ -219,7 +222,7 @@ abstract class QueryBuilderCommon extends GsonFormatters {
 
 	private Map<String, Object> prepareMap(CommandEnum command, Object... parameters) {
 		Map<String, Object> entityValues = new HashMap<String, Object>();
-		entityValues.put("id", UUID.randomUUID().toString());
+		entityValues.put("id", UUID.randomUUID().toString(	));
 		entityValues.put("method", command.toString().toLowerCase());
 		List<Object> paramList = new ArrayList<Object>(Arrays.asList(parameters));
 		entityValues.put("params", paramList);
