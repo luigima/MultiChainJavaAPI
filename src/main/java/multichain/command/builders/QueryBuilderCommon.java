@@ -176,7 +176,6 @@ abstract class QueryBuilderCommon extends GsonFormatters {
 				StringEntity rpcEntity = prepareRpcEntity(entityValues);
 				httppost.setEntity(rpcEntity);
 
-				System.out.println(new String(httppost.getEntity().getContent().readAllBytes(), StandardCharsets.UTF_8));
 				// Execute the request and get the answer
 				return executeRequest();
 

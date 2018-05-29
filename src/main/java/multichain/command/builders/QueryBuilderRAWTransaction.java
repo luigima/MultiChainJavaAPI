@@ -167,7 +167,7 @@ public class QueryBuilderRAWTransaction extends QueryBuilderCommon {
      * or
      * "hex" (string) The transaction hash in hex (if action= "send")
      */
-    protected Object executeCreateRawSendFrom(String address, List<RawParam> rawParams, String[] data, String action)
+    protected Object executeCreateRawSendFrom(String address, List<RawParam> rawParams, Object[] data, String action)
             throws MultichainException {
         MultichainTestParameter.isNotNullOrEmpty("address", address);
 
@@ -182,14 +182,7 @@ public class QueryBuilderRAWTransaction extends QueryBuilderCommon {
             }
         }
 
-        GsonBuilder builder = new GsonBuilder();
-        Gson gson = builder.create();
-        JsonParser parser = new JsonParser();
-        JsonArray jsonArray = new JsonArray();
-        for (String dataItem : data) {
-            jsonArray.add(parser.parse(dataItem).getAsJsonObject());
-        }
-
+		/*
         String[] dataFormated = null;
         if (data != null) {
             dataFormated = new String[data.length];
@@ -198,12 +191,12 @@ public class QueryBuilderRAWTransaction extends QueryBuilderCommon {
             }
         } else {
             dataFormated = new String[0];
-        }
+        }*/
 
         if (action == null) {
-            return execute(CommandEnum.CREATERAWSENDFROM, address, mapParams, dataFormated);
+            return execute(CommandEnum.CREATERAWSENDFROM, address, mapParams, data);
         } else {
-            return execute(CommandEnum.CREATERAWSENDFROM, address, mapParams, dataFormated, action);
+            return execute(CommandEnum.CREATERAWSENDFROM, address, mapParams, data, action);
         }
     }
 
@@ -518,8 +511,9 @@ public class QueryBuilderRAWTransaction extends QueryBuilderCommon {
      *
      * @return
      * @throws MultichainException
+	 * @param hexString
      */
-    protected Object executeSignRawTransaction(String hexString) throws MultichainException {
+    protected Object executeSignRawTransaction(Object[] hexString) throws MultichainException {
         MultichainTestParameter.isNotNullOrEmpty("hexString", hexString);
         return execute(CommandEnum.SIGNRAWTRANSACTION, hexString);
     }

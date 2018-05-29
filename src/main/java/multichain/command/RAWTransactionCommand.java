@@ -264,7 +264,7 @@ public class RAWTransactionCommand extends QueryBuilderRAWTransaction {
 	 * or
 	 * "hex" (string) The transaction hash in hex (if action= "send")
 	 */
-	public String createRawSendFrom(String address, List<RawParam> rawParams, String[] data) throws MultichainException {
+	public String createRawSendFrom(String address, List<RawParam> rawParams, Object[] data) throws MultichainException {
 		String transactionRAW = new String();
 
 		Object objectTransactionRAW = executeCreateRawSendFrom(address, rawParams, data, null);
@@ -700,8 +700,9 @@ public class RAWTransactionCommand extends QueryBuilderRAWTransaction {
 	 * 
 	 * @return
 	 * @throws MultichainException
+	 * @param hexString
 	 */
-	public SignedTransactionRAW signRawTransaction(String hexString) throws MultichainException {
+	public SignedTransactionRAW signRawTransaction(Object[] hexString) throws MultichainException {
 		SignedTransactionRAW signedTransactionRAW = new SignedTransactionRAW();
 
 		Object objectTransactionRAW = executeSignRawTransaction(hexString);
