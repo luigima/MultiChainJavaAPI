@@ -24,10 +24,13 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.CredentialsProvider;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.conn.HttpClientConnectionManager;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.util.EntityUtils;
 
 import com.google.gson.Gson;
@@ -148,9 +151,12 @@ abstract class QueryBuilderCommon extends GsonFormatters {
 		CredentialsProvider provider = new BasicCredentialsProvider();
 		UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(login, password);
 		provider.setCredentials(AuthScope.ANY, credentials);
+		HttpClientConnectionManager poolingConnManager
+				= new PoolingHttpClientConnectionManager();
 
-		httpclient = HttpClientBuilder.create().setDefaultCredentialsProvider(provider).build();
-
+		httpclient = HttpClients.custom().setConnectionManager(poolingConnManager)
+				.setDefaultCredentialsProvider(provider)
+				.build();
 	}
 
 	/**
