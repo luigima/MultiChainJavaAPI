@@ -22,6 +22,7 @@ public class MultiChainCommand {
 	private RAWTransactionCommand rawTransactionCommand;
 	private StreamCommand streamCommand;
 	private WalletTransactionCommand walletTransactionCommand;
+	private WalletCommand walletCommand;
 	private KeyCommand keyCommand;
 
 	/**
@@ -39,6 +40,7 @@ public class MultiChainCommand {
 		rawTransactionCommand = new RAWTransactionCommand(ip, port, login, password);
 		streamCommand = new StreamCommand(ip, port, login, password);
 		walletTransactionCommand = new WalletTransactionCommand(ip, port, login, password);
+		walletCommand = new WalletCommand(ip, port, login, password);
 		keyCommand = new KeyCommand(ip, port, login, password);
 	}
 
@@ -200,4 +202,11 @@ public class MultiChainCommand {
 		this.keyCommand = keyCommand;
 	}
 
+	public WalletCommand getWalletCommand() {
+		return walletCommand;
+	}
+
+	public void setWalletCommand(WalletCommand walletCommand) {
+		this.walletCommand = walletCommand;
+	}
 }
