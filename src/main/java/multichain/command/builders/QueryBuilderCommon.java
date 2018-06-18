@@ -87,6 +87,7 @@ abstract class QueryBuilderCommon extends GsonFormatters {
 								GETTXOUTDATA,
 								GETUNCONFIRMEDBALANCE,
 								GETWALLETTRANSACTION,
+		                        GETWALLETINFO,
 								GRANT,
 								GRANTFROM,
 								GRANTWITHMETADATA,
@@ -153,12 +154,12 @@ abstract class QueryBuilderCommon extends GsonFormatters {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param command
 	 * @param parameters
-	 * 
+	 *
 	 * @return
-	 * 
+	 *
 	 * 		example :
 	 *         MultichainQueryBuidlder.executeProcess(MultichainCommand
 	 *         .SENDTOADDRESS,"1EyXuq2JVrj4E3CpM9iNGNSqBpZ2iTPdwGKgvf
