@@ -8,6 +8,7 @@
 package multichain.command;
 
 import java.util.List;
+import java.util.Map;
 
 import multichain.command.builders.QueryBuilderRAWTransaction;
 import multichain.object.Address;
@@ -20,12 +21,12 @@ import multichain.object.queryobjects.TxIdVout;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.10
+ * @version 4.15
  */
 public class RAWTransactionCommand extends QueryBuilderRAWTransaction {
 
-	public RAWTransactionCommand(String ip, String port, String login, String password) {
-		initialize(ip, port, login, password);
+	public RAWTransactionCommand(String ip, String port, String login, String password, RuntimeParameters runtimeparameters) {
+		initialize(ip, port, login, password, runtimeparameters);
 	}
 
 	/**
@@ -198,6 +199,22 @@ public class RAWTransactionCommand extends QueryBuilderRAWTransaction {
 
 		return signedTransactionRAW;
 	}
+	
+	/**
+	 * to agree to call the method as in tutorial https://www.multichain.com/developers/raw-transactions/
+	 * for example have a look in test : RAWTransactionCommandTest
+	 * 
+	 * @param address from-address 
+	 * @param rawParams list of parameters
+	 * @return txId
+	 * @throws MultichainException
+	 */
+	public String createRawSendFromByMap(String address, List<Map<String, String>> rawParams)
+			throws MultichainException {
+		Object objectTransactionRAW = executeCreateRawSendFrom(address, rawParams);
+
+		return objectTransactionRAW.toString();
+	}	
 
 	/**
 	 * createrawsendfrom from-address {"address":amount,...} ( [data] action )
@@ -596,13 +613,15 @@ public class RAWTransactionCommand extends QueryBuilderRAWTransaction {
 	 * @return
 	 * @throws MultichainException
 	 */
-	public TransactionRAW getRawTransaction(String txid, int verbose) throws MultichainException {
-		TransactionRAW transactionRAW = new TransactionRAW();
-
+	public Object getRawTransaction(String txid, int verbose) throws MultichainException {
 		Object objectTransactionRAW = executeGetRawTransaction(txid, verbose);
-		transactionRAW = RAWTransactionFormatter.formatTransactionRAW(objectTransactionRAW);
-
-		return transactionRAW;
+		if (verbose == 0) {
+          return objectTransactionRAW;
+		} else {
+          TransactionRAW transactionRAW = RAWTransactionFormatter.formatTransactionRAW(objectTransactionRAW);
+          return transactionRAW;
+		}
+		
 	}
 
 	/**
@@ -613,7 +632,7 @@ public class RAWTransactionCommand extends QueryBuilderRAWTransaction {
 	 * @throws MultichainException
 	 */
 	public TransactionRAW getRAWTransactionWithDetail(String txid) throws MultichainException {
-		return getRawTransaction(txid, 1);
+		return (TransactionRAW) getRawTransaction(txid, 1);
 	}
 
 	/**
@@ -623,8 +642,8 @@ public class RAWTransactionCommand extends QueryBuilderRAWTransaction {
 	 * @return
 	 * @throws MultichainException
 	 */
-	public TransactionRAW getRAWTransactionWithoutDetail(String txid) throws MultichainException {
-		return getRawTransaction(txid, 0);
+	public String getRAWTransactionWithoutDetail(String txid) throws MultichainException {
+		return (String) getRawTransaction(txid, 0);
 	}
 
 	/**

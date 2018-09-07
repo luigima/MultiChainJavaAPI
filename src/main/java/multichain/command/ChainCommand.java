@@ -11,12 +11,12 @@ import multichain.command.builders.QueryBuilderChain;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 3.0
+ * @version 4.15
  */
 public class ChainCommand extends QueryBuilderChain {
 
-	public ChainCommand(String ip, String port, String login, String password) {
-		initialize(ip, port, login, password);
+	public ChainCommand(String ip, String port, String login, String password, RuntimeParameters runtimeparameters) {
+		initialize(ip, port, login, password, runtimeparameters);
 	}
 
 	/**
@@ -56,7 +56,30 @@ public class ChainCommand extends QueryBuilderChain {
 	 * @throws MultichainException
 	 */
 	public String getInfo() throws MultichainException {
-		return executeGetInfo().toString();
+		return executeGetInfo();
 	}
-
+	public String getInfo(String arg) throws MultichainException {
+		return executeGetInfo(arg);
+	}
+	
+	/**
+	 * help ( command )
+	 * 
+	 * List all commands, or get help for a specified command.
+	 * 
+	 * Arguments:
+	 * 1. "command"                        (string, optional) The command to get help on
+	 * 
+	 * Result:
+	 * "text"                              (string) The help text
+	 * @return
+	 * @throws MultichainException
+	 */
+	public String help() throws MultichainException {
+		return executeHelp(null);
+	}
+	
+	public String help(String command) throws MultichainException {
+		return executeHelp(command);
+	}
 }

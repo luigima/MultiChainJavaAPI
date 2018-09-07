@@ -17,12 +17,12 @@ import multichain.object.formatters.BlockFormatter;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.8
+ * @version 4.15
  */
 public class BlockCommand extends QueryBuilderBlock {
 
-	public BlockCommand(String ip, String port, String login, String password) {
-		initialize(ip, port, login, password);
+	public BlockCommand(String ip, String port, String login, String password, RuntimeParameters runtimeparameters) {
+		initialize(ip, port, login, password, runtimeparameters);
 	}
 
 	/**
@@ -168,8 +168,12 @@ public class BlockCommand extends QueryBuilderBlock {
 	 *         the active chain
 	 * @throws MultichainException
 	 */
-	public Block getBlock(int blockHeight, boolean verbose) throws MultichainException {
-		Object objectBlock = executeGetBlock(blockHeight, verbose);
+	public Block getBlock(long blockHeight, boolean verbose) throws MultichainException {
+	  int verboseValue = 0;
+	  if (verbose) {
+	    verboseValue = 1;
+	  }
+		Object objectBlock = executeGetBlock(blockHeight, verboseValue);
 		Block block = BlockFormatter.formatBlock(objectBlock);
 
 		return block;
@@ -183,7 +187,7 @@ public class BlockCommand extends QueryBuilderBlock {
 	 *         the active chain
 	 * @throws MultichainException
 	 */
-	public Block getBlock(int blockHeight) throws MultichainException {
+	public Block getBlock(long blockHeight) throws MultichainException {
 		return getBlock(blockHeight, true);
 	}
 

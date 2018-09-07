@@ -9,7 +9,7 @@ package multichain.command;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 3.0
+ * @version 4.15
  */
 public class MultiChainCommand {
 	private AddressCommand addressCommand;
@@ -25,23 +25,24 @@ public class MultiChainCommand {
 	private WalletCommand walletCommand;
 	private KeyCommand keyCommand;
 
-	/**
-	 * 
-	 */
-	public MultiChainCommand(String ip, String port, String login, String password) {
+	public MultiChainCommand(String ip, String port, String login, String password, RuntimeParameters runtimeparameters) {
 		super();
-		addressCommand = new AddressCommand(ip, port, login, password);
-		balanceCommand = new BalanceCommand(ip, port, login, password);
-		blockCommand = new BlockCommand(ip, port, login, password);
-		chainCommand = new ChainCommand(ip, port, login, password);
-		grantCommand = new GrantCommand(ip, port, login, password);
-		issueCommand = new IssueCommand(ip, port, login, password);
-		messagingCommand = new MessagingCommand(ip, port, login, password);
-		rawTransactionCommand = new RAWTransactionCommand(ip, port, login, password);
-		streamCommand = new StreamCommand(ip, port, login, password);
-		walletTransactionCommand = new WalletTransactionCommand(ip, port, login, password);
+		addressCommand = new AddressCommand(ip, port, login, password, runtimeparameters);
+		balanceCommand = new BalanceCommand(ip, port, login, password, runtimeparameters);
+		blockCommand = new BlockCommand(ip, port, login, password, runtimeparameters);
+		chainCommand = new ChainCommand(ip, port, login, password, runtimeparameters);
+		grantCommand = new GrantCommand(ip, port, login, password, runtimeparameters);
+		issueCommand = new IssueCommand(ip, port, login, password, runtimeparameters);
+		messagingCommand = new MessagingCommand(ip, port, login, password, runtimeparameters);
+		rawTransactionCommand = new RAWTransactionCommand(ip, port, login, password, runtimeparameters);
+		streamCommand = new StreamCommand(ip, port, login, password, runtimeparameters);
+		walletTransactionCommand = new WalletTransactionCommand(ip, port, login, password, runtimeparameters);
 		walletCommand = new WalletCommand(ip, port, login, password);
-		keyCommand = new KeyCommand(ip, port, login, password);
+		keyCommand = new KeyCommand(ip, port, login, password, runtimeparameters);
+	}
+	
+	public MultiChainCommand(String ip, String port, String login, String password) {
+		this(ip, port, login, password, null);
 	}
 
 	/**

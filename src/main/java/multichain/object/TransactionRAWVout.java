@@ -12,14 +12,15 @@ import java.util.List;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 1.0
+ * @version 4.14
  */
 public class TransactionRAWVout {
-	double value;
-	long n;
+	Double value = null;
+	Long n = null;
 	ScriptPubKey scriptPubKey;
 	List<BalanceAsset> assets;
 	List<Permission> permissions;
+	List<Item> items;
 
 	/**
 	 *
@@ -29,6 +30,7 @@ public class TransactionRAWVout {
 		scriptPubKey = new ScriptPubKey();
 		assets = new ArrayList<BalanceAsset>();
 		permissions = new ArrayList<Permission>();
+		items = new ArrayList<Item>();
 	}
 
 	/**
@@ -114,6 +116,20 @@ public class TransactionRAWVout {
 	public void addPermission(Permission permission) {
 		this.permissions.add(permission);
 	}
+
+  /**
+   * @return the items
+   */
+  public List<Item> getItems() {
+    return items;
+  }
+
+  /**
+   * @param items the items to set
+   */
+  public void setItems(List<Item> items) {
+    this.items = items;
+  }
 
 
 }
