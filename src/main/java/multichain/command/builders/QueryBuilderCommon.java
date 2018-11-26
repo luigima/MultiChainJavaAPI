@@ -76,6 +76,7 @@ abstract class QueryBuilderCommon extends GsonFormatters {
 								GETBLOCKCOUNT,
 								GETBLOCKHASH,
 								GETINFO,
+		                        GETMEMPOOLINFO,
 								GETMULTIBALANCES,
 								GETNEWADDRESS,
 								GETRAWCHANGEADDRESS,
@@ -190,6 +191,7 @@ abstract class QueryBuilderCommon extends GsonFormatters {
 
 		}
 	}
+
 
 	protected StringEntity prepareRpcEntity(Map<String, Object> entityValues) throws UnsupportedEncodingException {
 		return new StringEntity(formatJson(entityValues));

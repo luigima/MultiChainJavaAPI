@@ -18,5 +18,7 @@ public class QueryBuilderChain extends QueryBuilderCommon {
 	protected Object executeGetInfo() throws MultichainException {
 		return execute(CommandEnum.GETINFO);
 	}
-
+	protected Object executeGetMemPoolInfo() throws MultichainException {
+		return execute(CommandEnum.GETMEMPOOLINFO);
+	}
 }

@@ -59,4 +59,8 @@ public class ChainCommand extends QueryBuilderChain {
 		return executeGetInfo().toString();
 	}
 
+	public String getMemPoolInfo() throws MultichainException {
+		return executeGetMemPoolInfo().toString();
+	}
+
 }
