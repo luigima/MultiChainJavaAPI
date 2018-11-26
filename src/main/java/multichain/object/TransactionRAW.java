@@ -12,14 +12,15 @@ import java.util.List;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 1.0
+ * @version 4.15
  */
 public class TransactionRAW {
-	String txid;
-	int version;
-	long locktime;
+	String txid = null;
+	Integer version = null;
+	Long locktime = null;
 	List<TransactionRAWVin> vin;
 	List<TransactionRAWVout> vout;
+	AssetWalletTransaction issue = null;
 	List<String> data;
 
 	/**
@@ -139,6 +140,20 @@ public class TransactionRAW {
 	 */
 	public void setVersion(int version) {
 		this.version = version;
+	}
+
+	/**
+	 * @return the issue
+	 */
+	public AssetWalletTransaction getIssue() {
+		return issue;
+	}
+
+	/**
+	 * @param issue the issue to set
+	 */
+	public void setIssue(AssetWalletTransaction issue) {
+		this.issue = issue;
 	}
 
 }

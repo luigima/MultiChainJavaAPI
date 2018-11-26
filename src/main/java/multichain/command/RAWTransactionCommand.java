@@ -8,6 +8,7 @@
 package multichain.command;
 
 import java.util.List;
+import java.util.Map;
 
 import multichain.command.builders.QueryBuilderRAWTransaction;
 import multichain.object.Address;
@@ -20,12 +21,12 @@ import multichain.object.queryobjects.TxIdVout;
 
 /**
  * @author Ub - H. MARTEAU
- * @version 4.10
+ * @version 4.15
  */
 public class RAWTransactionCommand extends QueryBuilderRAWTransaction {
 
-	public RAWTransactionCommand(String ip, String port, String login, String password) {
-		initialize(ip, port, login, password);
+	public RAWTransactionCommand(String ip, String port, String login, String password, RuntimeParameters runtimeparameters) {
+		initialize(ip, port, login, password, runtimeparameters);
 	}
 
 	/**
@@ -198,6 +199,22 @@ public class RAWTransactionCommand extends QueryBuilderRAWTransaction {
 
 		return signedTransactionRAW;
 	}
+	
+	/**
+	 * to agree to call the method as in tutorial https://www.multichain.com/developers/raw-transactions/
+	 * for example have a look in test : RAWTransactionCommandTest
+	 * 
+	 * @param address from-address 
+	 * @param rawParams list of parameters
+	 * @return txId
+	 * @throws MultichainException
+	 */
+	public String createRawSendFromByMap(String address, List<Map<String, String>> rawParams)
+			throws MultichainException {
+		Object objectTransactionRAW = executeCreateRawSendFrom(address, rawParams);
+
+		return objectTransactionRAW.toString();
+	}	
 
 	/**
 	 * createrawsendfrom from-address {"address":amount,...} ( [data] action )
@@ -264,7 +281,7 @@ public class RAWTransactionCommand extends QueryBuilderRAWTransaction {
 	 * or
 	 * "hex" (string) The transaction hash in hex (if action= "send")
 	 */
-	public String createRawSendFrom(String address, List<RawParam> rawParams, Object[] data) throws MultichainException {
+	public String createRawSendFrom(String address, List<RawParam> rawParams, String[] data) throws MultichainException {
 		String transactionRAW = new String();
 
 		Object objectTransactionRAW = executeCreateRawSendFrom(address, rawParams, data, null);
@@ -702,9 +719,8 @@ public class RAWTransactionCommand extends QueryBuilderRAWTransaction {
 	 * 
 	 * @return
 	 * @throws MultichainException
-	 * @param hexString
 	 */
-	public SignedTransactionRAW signRawTransaction(Object[] hexString) throws MultichainException {
+	public SignedTransactionRAW signRawTransaction(String hexString) throws MultichainException {
 		SignedTransactionRAW signedTransactionRAW = new SignedTransactionRAW();
 
 		Object objectTransactionRAW = executeSignRawTransaction(hexString);
