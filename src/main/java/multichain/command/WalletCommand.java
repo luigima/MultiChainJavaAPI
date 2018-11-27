@@ -16,7 +16,7 @@ import java.util.List;
 public class WalletCommand extends QueryBuilderWallet {
 
 	public WalletCommand(String ip, String port, String login, String password) {
-		initialize(ip, port, login, password);
+		initialize(ip, port, login, password, null);
 	}
 
 	public WalletInfo getWalletInfo() throws MultichainException {
